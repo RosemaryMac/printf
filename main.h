@@ -6,15 +6,15 @@
 
 /**
  * struct print - structure for printing various types
- * @c: type to print
+ * @t: type to print
  * @f: function to print
  */
 
 typedef struct print
 {
-	char *c;
+	char *t;
 	int (*f)(va_list);
-} flags_p;
+} print_t;
 
 int _printf(const char *format, ...);
 int _putchar(char c);
