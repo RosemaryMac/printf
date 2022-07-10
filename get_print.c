@@ -38,4 +38,3 @@ int (*get_print(char s))(va_list, flags_t *)
 			return (func_arr[i].f);
 	return (NULL);
 }
-			
