@@ -12,9 +12,9 @@
 
 typedef struct print
 {
-	char *t;
+	char *c;
 	int (*f)(va_list);
-} print_t;
+} flags_p;
 
 int _printf(const char *format, ...);
 int _putchar(char c);
