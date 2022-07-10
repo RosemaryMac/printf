@@ -2,12 +2,11 @@
 #include <stdarg.h>
 
 /**
- * get_op - select function for conversion char
- * @c: char to check
- * Return: pointer to function
+ * check_for_specifiers - checks if there is a valid format specifier
+ * @format: possible format specifier
+ * Return: pointer to valid function or NULL
  */
-
-int (*get_op(const char c))(va_list)
+static int (*check_for_specifiers(const char *format))(va_list)
 {
 unsigned int i;
 print_t p[] = {
