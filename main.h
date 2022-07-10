@@ -6,7 +6,7 @@
 
 /**
  * struct print - structure for printing various types
- * @t: type to print
+ * @c: type to print
  * @f: function to print
  */
 
