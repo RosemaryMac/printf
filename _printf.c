@@ -1,6 +1,5 @@
 #include "main.h"
 #include <stdarg.h>
-#include <stddef.h>
 
 /**
  * get_op - select function for conversion char
@@ -10,73 +9,70 @@
 
 int (*get_op(const char c))(va_list)
 {
-	int i = 0;
-
-	flags_p fp[] = {
-		{"c", print_char},
-		{"s", print_str},
-		{"i", print_nbr},
-		{"d", print_nbr},
-		{"b", print_binary},
-		{"o", print_octal},
-		{"x", print_hexa_lower},
-		{"X", print_hexa_upper},
-		{"u", print_unsigned},
-		{"S", print_str_unprintable},
-		{"r", print_str_reverse},
-		{"p", print_ptr},
-		{"R", print_rot13},
-		{"%", print_percent}
-	};
-	while (i < 14)
-	{
-		if (c == fp[i].c[0])
-		{
-			return (fp[i].f);
-		}
-		i++;
-	}
-	return (NULL);
+unsigned int i;
+print_t p[] = {
+{"c", print_c},
+{"s", print_s},
+{"i", print_i},
+{"d", print_d},
+{"u", print_u},
+{"b", print_b},
+{"o", print_o},
+{"x", print_x},
+{"X", print_X},
+{"p", print_p},
+{"S", print_S},
+{"r", print_r},
+{"R", print_R},
+{NULL, NULL}
+};
+for (i = 0; p[i].t != NULL; i++)
+{
+if (*(p[i].t) == *format)
+{
+break;
+}
+}
+return (p[i].f);
 }
 /**
- * _printf - Reproduce behavior of printf function
- * @format: format string
- * Return: value of printed chars
+ * _printf - prints anything
+ * @format: list of argument types passed to the function
+ * Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
-va_list ap;
-int sum = 0, i = 0;
-int (*func)();
-if (!format || (format[0] == '%' && format[1] == '\0'))
+unsigned int i = 0, count = 0;
+va_list valist;
+int (*f)(va_list);
+if (format == NULL)
 return (-1);
-va_start(ap, format);
+va_start(valist, format);
 while (format[i])
 {
-if (format[i] == '%')
-{
-if (format[i + 1] != '\0')
-func = get_op(format[i + 1]);
-if (func == NULL)
+for (; format[i] != '%' && format[i]; i++)
 {
 _putchar(format[i]);
-sum++;
-i++;
+count++;
 }
-else
+if (!format[i])
+return (count);
+f = check_for_specifiers(&format[i + 1]);
+if (f != NULL)
 {
-sum += func(ap);
+count += f(valist);
 i += 2;
 continue;
 }
-}
-else
-{
+if (!format[i + 1])
+return (-1);
 _putchar(format[i]);
-sum++;
+count++;
+if (format[i + 1] == '%')
+i += 2;
+else
 i++;
 }
-}
-va_end(ap);
-return (sum);
+va_end(valist);
+return (count);
 }
