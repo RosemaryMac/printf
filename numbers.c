@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 
-#include "holberton.h"
+#include "main.h"
 
 /**
  * print_unsigned_number - print unsigned number
