@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef SCHOOL_H
+#define SCHOOL_H
 
 #include <stdlib.h>
 #include <stdarg.h>
